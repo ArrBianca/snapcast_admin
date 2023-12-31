@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "snapcast_admin"
+version = "0.1.0"
+description = ""
+authors = ["June <june@peanut.one>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+argparse = "^1.4.0"
+argcomplete = "^3.2.1"
+b2sdk = "^1.29.0"
+wcwidth = "^0.2.12"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.6.0"
+ruff = "^0.1.9"
+
+[tool.poetry.scripts]
+snadmin = "snapcast_admin:run"
+
+[tool.mypy]
+ignore_missing_imports = true  # 😔
+
+[tool.ruff]
+line-length = 80
+
+[tool.ruff.lint]
+select = [  # Brought over whole-cloth from another project of mine. 🤷
+    "E", "E501", "I", "D",
+    "N", "F", "UP", "ANN",
+    "BLE", "B", "COM", "C4",
+    "DTZ", "RET", "SLF", "SIM",
+]
+ignore = [
+    "ANN101",
+    "D203", "D213",
+    "S113"
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
