@@ -7,17 +7,19 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-argparse = "^1.4.0"
-argcomplete = "^3.2.1"
 b2sdk = "^1.29.0"
+click = "^8.1.7"
 wcwidth = "^0.2.12"
 
 [tool.poetry.group.dev.dependencies]
+mypy = "^1.8.0"
 pre-commit = "^3.6.0"
 ruff = "^0.1.9"
+types-click = "^7.1.8"
+types-requests = "^2.31.0.20231231"
 
 [tool.poetry.scripts]
-snadmin = "snapcast_admin:run"
+snadmin = "snapcast_admin:cli"
 
 [tool.mypy]
 ignore_missing_imports = true  # 😔
