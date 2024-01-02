@@ -36,7 +36,7 @@ select = [  # Brought over whole-cloth from another project of mine. 🤷
 ]
 ignore = [
     "ANN101",
-    "D203", "D213",
+    "D100", "D203", "D213",
     "S113"
 ]
 
