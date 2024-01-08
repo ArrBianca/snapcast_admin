@@ -14,7 +14,6 @@ database_fields = (
     'title', 'summary', 'subtitle', 'long_summary', 'media_url', 'media_size',
     'media_type', 'media_duration', 'pub_date', 'link', 'episode_art',
 )
-b2_base_url = "https://f005.backblazeb2.com/file/jbc-external/"
 BEARER_TOKEN = {'Authorization': "Bearer 628c17c9-f2b8-4616-a5fb-f4a9759f32c9"}
 BASE_URL = "https://www.peanut.one/snapcast"
 # BASE_URL = "http://192.168.1.176:5000/snapcast"
