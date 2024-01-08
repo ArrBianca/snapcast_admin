@@ -16,8 +16,9 @@ from uuid import UUID
 
 import click
 import requests
+from b2sdk.exception import FileNotPresent
 
-from .util import b2_delete_all_versions, fwtruncate
+from .util import fwtruncate, get_b2
 
 database_fields = (
     'title', 'summary', 'subtitle', 'long_summary', 'media_url', 'media_size',
@@ -95,8 +96,8 @@ def get_all_episodes() -> Iterable[Episode]:
     return [Episode(**i) for i in data.json()]
 
 
-def episode_info(episode_id: str | int) -> Optional[Episode]:
-    """Retrieve all data for the specified episode.
+def episode_info(episode_id: str) -> Optional[Episode]:
+    """Retrieve all data for the specified episode, should one exist.
 
     :param episode_id: The ID of the episode to retrieve information for.
         Either an integer episode number,a UUID, or -1 which returns the latest
@@ -191,8 +192,15 @@ def delete(episode_id: str) -> None:
         f"{BASE_URL}/{FEED_ID}/episode/{episode.uuid}",
         headers=BEARER_TOKEN,
     )
+
+    _, bucket = get_b2()
     filename = unquote(episode.media_url.split("/")[-1])
-    b2_delete_all_versions(filename)
+
+    while True:  # Delete until no file versions remain
+        try:
+            bucket.get_file_info_by_name(filename).delete()
+        except FileNotPresent:
+            break
 
     click.echo(f"Episode entry #{episode_id} successfuly deleted")
 

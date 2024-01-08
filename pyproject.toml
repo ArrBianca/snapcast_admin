@@ -19,7 +19,7 @@ types-click = "^7.1.8"
 types-requests = "^2.31.0.20231231"
 
 [tool.poetry.scripts]
-snadmin = "snapcast_admin:cli"
+snapcast_admin = "snapcast_admin:cli"
 
 [tool.mypy]
 ignore_missing_imports = true  # 😔
@@ -28,7 +28,7 @@ ignore_missing_imports = true  # 😔
 line-length = 80
 
 [tool.ruff.lint]
-select = [  # Brought over whole-cloth from another project of mine. 🤷
+select = [  # Brought over whole-cloth from another project of mine.
     "E", "E501", "I", "D",
     "N", "F", "UP", "ANN",
     "BLE", "B", "COM", "C4",

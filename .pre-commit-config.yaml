@@ -10,14 +10,6 @@ repos:
     hooks:
     -   id: ruff
         args: [ --fix ]
--   repo: local
-    hooks:
-    -   id: mypy-type-check
-        name: mypy
-        entry: poetry run mypy .
-        types: [ python ]
-        pass_filenames: false
-        language: python
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
@@ -26,3 +18,11 @@ repos:
     -   id: check-yaml
     -   id: check-toml
     -   id: check-json
+-   repo: local
+    hooks:
+    -   id: mypy-type-check
+        name: mypy
+        entry: poetry run mypy .
+        types: [ python ]
+        pass_filenames: false
+        language: python

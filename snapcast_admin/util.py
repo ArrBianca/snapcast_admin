@@ -1,9 +1,10 @@
-from b2sdk.exception import FileNotPresent
-from b2sdk.v2 import B2Api, Bucket, InMemoryAccountInfo
+from b2sdk.account_info.in_memory import InMemoryAccountInfo
+from b2sdk.api import B2Api
+from b2sdk.bucket import Bucket
 from wcwidth import wcwidth
 
-B2_APP_KEY_ID = "0051810bbcb180d0000000003"
-B2_APP_KEY = "K005NELiDxj5ILjowIzhM7eA5l8qG+s"
+B2_APP_KEY_ID = "0051810bbcb180d0000000005"
+B2_APP_KEY = "K005nRSEomcKd2Q+hzzCk8Ew3qbLrh4"
 
 
 def get_b2() -> tuple[B2Api, Bucket]:
@@ -12,17 +13,6 @@ def get_b2() -> tuple[B2Api, Bucket]:
     b2.authorize_account("production", B2_APP_KEY_ID, B2_APP_KEY)
     bucket = b2.get_bucket_by_name("jbc-external")
     return b2, bucket
-
-
-def b2_delete_all_versions(filename: str) -> None:
-    """Delete all FileVersions for a given name."""
-    _, bucket = get_b2()
-
-    while True:  # Delete until no file versions remain
-        try:
-            bucket.get_file_info_by_name(filename).delete()
-        except FileNotPresent:
-            break
 
 
 def fwtruncate(s: str, max_width: int, min_width: int = 0) -> str:
