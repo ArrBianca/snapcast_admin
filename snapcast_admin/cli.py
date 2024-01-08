@@ -85,7 +85,6 @@ def update(episode: Episode, field: str, value: str) -> None:
 def delete(episode: Episode) -> None:
     """Delete episodes."""
     delete_episode(episode)
-    click.echo(f"Episode entry #{episode.id} successfuly deleted")
 
 
 if __name__ == '__main__':
