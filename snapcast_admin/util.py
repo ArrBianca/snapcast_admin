@@ -37,3 +37,9 @@ def fwtruncate(s: str, max_width: int, min_width: int = 0) -> str:
         length += 1
         current_width += char_width
     return s[0:max(length, min_width)]
+
+
+class InvalidIdError(Exception):
+    """Exception raised when an invalid id is provided to the script."""
+
+    pass
