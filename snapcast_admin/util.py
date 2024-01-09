@@ -1,10 +1,12 @@
+from os import environ
+
 from b2sdk.account_info.in_memory import InMemoryAccountInfo
 from b2sdk.api import B2Api
 from b2sdk.bucket import Bucket
 from wcwidth import wcwidth
 
-B2_APP_KEY_ID = "0051810bbcb180d0000000005"
-B2_APP_KEY = "K005nRSEomcKd2Q+hzzCk8Ew3qbLrh4"
+B2_APP_KEY_ID = environ['SNADMIN_B2_APP_KEY_ID']
+B2_APP_KEY = environ['SNADMIN_B2_APP_KEY']
 
 
 def get_b2() -> tuple[B2Api, Bucket]:

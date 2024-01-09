@@ -2,6 +2,7 @@
 
 from dataclasses import KW_ONLY, dataclass
 from datetime import datetime, timedelta, timezone
+from os import environ
 from typing import Iterable, Optional
 from urllib.parse import unquote
 
@@ -14,10 +15,10 @@ database_fields = (
     'title', 'summary', 'subtitle', 'long_summary', 'media_url', 'media_size',
     'media_type', 'media_duration', 'pub_date', 'link', 'episode_art',
 )
-BEARER_TOKEN = {'Authorization': "Bearer 628c17c9-f2b8-4616-a5fb-f4a9759f32c9"}
+AUTH_HEADER = {'Authorization': f"Bearer {environ['SNADMIN_TOKEN']}"}
 BASE_URL = "https://www.peanut.one/snapcast"
 # BASE_URL = "http://192.168.1.176:5000/snapcast"
-FEED_ID = "1787bd99-9d00-48c3-b763-5837f8652bd9"
+FEED_ID = environ['SNADMIN_FEED_ID']
 
 
 @dataclass
@@ -50,7 +51,7 @@ def get_all_episodes() -> Iterable[Episode]:
     """Retrieve all episodes from the server."""
     data = requests.get(
         f"{BASE_URL}/{FEED_ID}/episodes",
-        headers=BEARER_TOKEN,
+        headers=AUTH_HEADER,
     )
     data.raise_for_status()
 
@@ -92,7 +93,7 @@ def update_episode(episode: Episode, field: str, value: str) -> None:
 
     requests.patch(
         f"{BASE_URL}/{FEED_ID}/episode/{episode.uuid}",
-        headers=BEARER_TOKEN,
+        headers=AUTH_HEADER,
         json={field: value},
     )
 
@@ -101,7 +102,7 @@ def delete_episode(episode: Episode) -> None:
     """Delete an episode from the server and from backblaze."""
     requests.delete(
         f"{BASE_URL}/{FEED_ID}/episode/{episode.uuid}",
-        headers=BEARER_TOKEN,
+        headers=AUTH_HEADER,
     )
 
     _, bucket = get_b2()
