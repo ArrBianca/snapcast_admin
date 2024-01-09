@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.12"
 b2sdk = "^1.29.0"
 click = "^8.1.7"
+requests = "^2.31.0"
 wcwidth = "^0.2.12"
 
 [tool.poetry.group.dev.dependencies]
