@@ -17,7 +17,7 @@ database_fields = (
 )
 AUTH_HEADER = {'Authorization': f"Bearer {environ['SNADMIN_TOKEN']}"}
 BASE_URL = "https://www.peanut.one/snapcast"
-# BASE_URL = "http://192.168.1.176:5000/snapcast"
+# BASE_URL = "http://127.0.0.1:5000/snapcast"
 FEED_ID = environ['SNADMIN_FEED_ID']
 
 
