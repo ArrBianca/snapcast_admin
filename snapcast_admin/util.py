@@ -10,8 +10,8 @@ def get_b2() -> tuple[B2Api, Bucket]:
     """Return B2Api object and the `jbc-external` bucket."""
     b2 = B2Api(InMemoryAccountInfo())
     b2.authorize_account(
-        environ['SNADMIN_B2_APP_KEY_ID'],
-        environ['SNADMIN_B2_APP_KEY'],
+        environ["SNADMIN_B2_APP_KEY_ID"],
+        environ["SNADMIN_B2_APP_KEY"],
         "production",
     )
     bucket = b2.get_bucket_by_name("jbc-external")

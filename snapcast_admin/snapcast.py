@@ -12,14 +12,14 @@ from b2sdk.exception import FileNotPresent
 from .util import InvalidIdError, get_b2
 
 database_fields = (
-    'title', 'subtitle', 'description', 'media_url',
-    'media_size', 'media_type', 'media_duration', 'pub_date',
-    'link', 'image', 'episode_type', 'season', 'episode',
+    "title", "subtitle", "description", "media_url",
+    "media_size", "media_type", "media_duration", "pub_date",
+    "link", "image", "episode_type", "season", "episode",
 )
-AUTH_HEADER = {'Authorization': f"Bearer {environ['SNADMIN_TOKEN']}"}
+AUTH_HEADER = {"Authorization": f"Bearer {environ['SNADMIN_TOKEN']}"}
 BASE_URL = "https://www.peanut.one/snapcast"
 # BASE_URL = "http://127.0.0.1:5000/snapcast"
-FEED_ID = environ['SNADMIN_FEED_ID']
+FEED_ID = environ["SNADMIN_FEED_ID"]
 
 
 @dataclass
@@ -65,7 +65,7 @@ def episode_info(episode_id: str) -> Optional[Episode]:
     """Retrieve all data for the specified episode, should one exist.
 
     :param episode_id: The ID of the episode to retrieve information for.
-        Either an integer episode number,a UUID, or -1 which returns the latest
+        Either an integer episode number, a UUID, or -1 which returns the latest
         episode.
     :raises InvalidIdError: if the ``episode_id`` turns out to be invalid.
     :return: An `Episode` containing data for the ``episode_id``

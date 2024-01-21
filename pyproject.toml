@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "snapcast_admin"
-version = "2.0.0"
+version = "2.0.1"
 description = ""
 authors = ["June <june@peanut.one>"]
 readme = "README.md"
@@ -29,8 +29,8 @@ ignore_missing_imports = true  # 😔
 line-length = 80
 
 [tool.ruff.lint]
-select = [  # Brought over whole-cloth from another project of mine.
-    "E", "E501", "I", "D",
+select = [
+    "E", "E501", "I", "D", "Q",
     "N", "F", "UP", "ANN",
     "BLE", "B", "COM", "C4",
     "DTZ", "RET", "SLF", "SIM",

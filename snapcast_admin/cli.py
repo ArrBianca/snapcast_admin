@@ -41,7 +41,7 @@ def cli() -> None:
     "--sort",
     help="sort results. default: pub_date",
     default="pub_date",
-    type=click.Choice(['pub_date', 'id']),
+    type=click.Choice(["pub_date", "id"]),
 )
 @click.option("--find", help="filter output to results containing TEXT")
 def handle_list(sort: str, find: Optional[str]) -> None:
@@ -71,7 +71,7 @@ def info(episode: Episode) -> None:
     click.echo(pf(episode))
 
 
-@cli.command(context_settings={'ignore_unknown_options': True})
+@cli.command(context_settings={"ignore_unknown_options": True})
 @click.argument("episode", required=True, type=EpisodeType())
 @click.argument("field", required=True, type=click.Choice(database_fields))
 @click.argument("value", required=True)
@@ -87,5 +87,5 @@ def delete(episode: Episode) -> None:
     delete_episode(episode)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()
