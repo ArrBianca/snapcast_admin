@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "snapcast_admin"
-version = "2.0.1"
+version = "2.0.2"
 description = ""
 authors = ["June <june@peanut.one>"]
 readme = "README.md"
@@ -31,14 +31,14 @@ line-length = 80
 [tool.ruff.lint]
 select = [
     "E", "E501", "I", "D", "Q",
-    "N", "F", "UP", "ANN",
+    "N", "F", "UP", "TD", "W",
     "BLE", "B", "COM", "C4",
     "DTZ", "RET", "SLF", "SIM",
 ]
 ignore = [
-    "ANN101",
-    "D100", "D203", "D213",
-    "S113"
+    "D100", "D104", "D107", "D203", "D213", "D400",
+    "S113",
+    "TD002", "TD003",
 ]
 
 [build-system]

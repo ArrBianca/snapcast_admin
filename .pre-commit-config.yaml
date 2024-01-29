@@ -26,3 +26,7 @@ repos:
         types: [ python ]
         pass_filenames: false
         language: python
+    -   id: version-bump
+        name: version-bump
+        entry: version-bump.py
+        language: "script"
