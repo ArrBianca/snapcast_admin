@@ -53,7 +53,7 @@ def handle_list(sort: str, find: Optional[str]) -> None:
 
     lines = []
     width = get_terminal_size((0, 0)).columns
-    for ep in sorted(episodes, key=lambda x: getattr(x, sort)):
+    for ep in sorted(episodes, key=lambda episode: getattr(episode, sort)):
         lines.append("│ ".join([
             f"{ep.id:3}",
             f"{ep.pub_date:%Y-%m-%d}",
