@@ -53,13 +53,13 @@ def handle_list(sort: str, find: Optional[str]) -> None:
 
     lines = []
     width = get_terminal_size((0, 0)).columns
-    for ep in sorted(episodes, key=lambda episode: getattr(episode, sort)):
+    for ep in sorted(episodes, key=lambda e: getattr(e, sort)):
         lines.append("│ ".join([
             f"{ep.id:3}",
             f"{ep.pub_date:%Y-%m-%d}",
             f"{ep.media_duration!s:>8}",
             f"{ep.media_size / 1000000:#6.2F} MB",
-            f"{fwtruncate(ep.title, width - 38)}" if width else f"{ep.title}",
+            f"{fwtruncate(ep.title, width - 38)}" if width else ep.title,
         ]))
     click.echo("\n".join(lines))
 
