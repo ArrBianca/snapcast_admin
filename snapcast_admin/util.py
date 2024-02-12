@@ -27,7 +27,7 @@ def fwtruncate(s: str, max_width: int, min_width: int = 0) -> str:
     :return: A substring of `s` no wider than `max_width` characters when
         printed to a console
     """
-    if max_width >= min_width:
+    if min_width > max_width:
         msg = "min_width must not be more than max_width"
         raise ValueError(msg)
     length = 0
