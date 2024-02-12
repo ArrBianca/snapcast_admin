@@ -12,9 +12,9 @@ from b2sdk.exception import FileNotPresent
 from .util import InvalidIdError, get_b2
 
 database_fields = (
-    "title", "subtitle", "description", "media_url",
-    "media_size", "media_type", "media_duration", "pub_date",
-    "link", "image", "episode_type", "season", "episode",
+    "title", "subtitle", "description", "media_url", "media_size",
+    "media_type", "media_duration", "pub_date", "link", "image",
+    "episode_type", "season", "episode", "transcript", "transcript_type",
 )
 AUTH_HEADER = {"Authorization": f"Bearer {environ['SNADMIN_TOKEN']}"}
 BASE_URL = "https://www.peanut.one/snapcast"
@@ -38,6 +38,8 @@ class Episode:  # noqa: D101
     episode_type: str
     season: int
     episode: int
+    transcript: str
+    transcript_type: str
     _: KW_ONLY
     uuid: str
     podcast_uuid: int
