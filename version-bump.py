@@ -7,7 +7,7 @@ __version__ = "1.0.0"
 
 def cmd(command: str) -> list[str]:
     """Run a shell command and return the stdout split up by line."""
-    result = run(command.split(), stdout=PIPE, encoding="utf-8")
+    result = run(command.split(), stdout=PIPE, encoding="utf-8", check=False)  # noqa: S603 only run with known inputs
 
     return result.stdout.splitlines()
 

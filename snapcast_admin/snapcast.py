@@ -3,7 +3,7 @@
 from dataclasses import KW_ONLY, dataclass
 from datetime import datetime, timedelta, timezone
 from os import environ
-from typing import Iterable, Optional
+from typing import Iterable
 from urllib.parse import unquote
 
 import requests
@@ -16,9 +16,10 @@ database_fields = (
     "media_type", "media_duration", "pub_date", "link", "image",
     "episode_type", "season", "episode", "transcript", "transcript_type",
 )
+NOT_FOUND = 404
 AUTH_HEADER = {"Authorization": f"Bearer {environ['SNADMIN_TOKEN']}"}
 BASE_URL = "https://www.peanut.one/snapcast"
-# BASE_URL = "http://127.0.0.1:5000/snapcast"
+# BASE_URL = "http://127.0.0.1:5000/snapcast"  # noqa: ERA001
 FEED_ID = environ["SNADMIN_FEED_ID"]
 
 
@@ -57,13 +58,14 @@ def get_all_episodes() -> Iterable[Episode]:
     data = requests.get(
         f"{BASE_URL}/{FEED_ID}/episodes",
         headers=AUTH_HEADER,
+        timeout=10,
     )
     data.raise_for_status()
 
     return [Episode(**i) for i in data.json()]
 
 
-def episode_info(episode_id: str) -> Optional[Episode]:
+def episode_info(episode_id: str) -> Episode:
     """Retrieve all data for the specified episode, should one exist.
 
     :param episode_id: The ID of the episode to retrieve information for.
@@ -72,9 +74,12 @@ def episode_info(episode_id: str) -> Optional[Episode]:
     :raises InvalidIdError: if the ``episode_id`` turns out to be invalid.
     :return: An `Episode` containing data for the ``episode_id``
     """
-    response = requests.get(f"{BASE_URL}/{FEED_ID}/episode/{episode_id}")
-    if response.status_code == 404:
-        raise InvalidIdError(f"Episode {episode_id} was not found.")
+    response = requests.get(
+        f"{BASE_URL}/{FEED_ID}/episode/{episode_id}",
+        timeout=10,
+    )
+    if response.status_code == NOT_FOUND:
+        raise InvalidIdError(episode_id)
     return Episode(**response.json())
 
 
@@ -100,6 +105,7 @@ def update_episode(episode: Episode, field: str, value: str) -> None:
         f"{BASE_URL}/{FEED_ID}/episode/{episode.uuid}",
         headers=AUTH_HEADER,
         json={field: value},
+        timeout=10,
     )
 
 
@@ -108,6 +114,7 @@ def delete_episode(episode: Episode) -> None:
     requests.delete(
         f"{BASE_URL}/{FEED_ID}/episode/{episode.uuid}",
         headers=AUTH_HEADER,
+        timeout=10,
     )
 
     _, bucket = get_b2()

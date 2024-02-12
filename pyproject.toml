@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "snapcast_admin"
-version = "2.0.3"
+version = "2.0.4"
 description = ""
 authors = ["June <june@peanut.one>"]
 readme = "README.md"
@@ -29,15 +29,13 @@ ignore_missing_imports = true  # 😔
 line-length = 80
 
 [tool.ruff.lint]
-select = [
-    "E", "E501", "I", "D", "Q",
-    "N", "F", "UP", "TD", "W",
-    "BLE", "B", "COM", "C4",
-    "DTZ", "RET", "SLF", "SIM",
-]
+select = [ "ALL" ]
 ignore = [
-    "D100", "D104", "D107", "D203", "D213", "D400",
-    "S113",
+    "ARG", "FA", "PERF",
+    "A003",
+    "ANN101",
+    "D100", "D107", "D203", "D213", "D400",
+    "FIX002",
     "TD002", "TD003",
 ]
 

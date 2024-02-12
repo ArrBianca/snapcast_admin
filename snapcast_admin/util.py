@@ -27,7 +27,9 @@ def fwtruncate(s: str, max_width: int, min_width: int = 0) -> str:
     :return: A substring of `s` no wider than `max_width` characters when
         printed to a console
     """
-    assert max_width >= min_width
+    if max_width >= min_width:
+        msg = "min_width must not be more than max_width"
+        raise ValueError(msg)
     length = 0
     current_width = 0
 
@@ -45,4 +47,5 @@ def fwtruncate(s: str, max_width: int, min_width: int = 0) -> str:
 class InvalidIdError(Exception):
     """Exception raised when an invalid id is provided to the script."""
 
-    pass
+    def __init__(self, episode_id: str) -> None:
+        super().__init__(f"Episode {episode_id} was not found.")

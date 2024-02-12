@@ -12,7 +12,7 @@ from .snapcast import (
     get_all_episodes,
     update_episode,
 )
-from .util import fwtruncate
+from .util import InvalidIdError, fwtruncate
 
 
 class EpisodeType(click.ParamType):  # noqa: D101
@@ -24,16 +24,17 @@ class EpisodeType(click.ParamType):  # noqa: D101
             ctx: Optional[click.Context],
     ) -> Episode:
         """Convert an episode ID from the cli to an Episode object."""
-        if (episode := episode_info(value)) is not None:
+        try:
+            episode = episode_info(value)
+        except InvalidIdError as e:
+            self.fail(str(e))
+        else:
             return episode
-        # `fail` raises an exception so None won't ever be returned here
-        self.fail(f"{value} is not a valid episode ID.")  # noqa: RET503
 
 
 @click.group(context_settings={"max_content_width": 90})
 def cli() -> None:
     """Remote control script for the snapcast podcast host."""
-    pass
 
 
 @cli.command(name="list")
