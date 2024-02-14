@@ -134,7 +134,7 @@ def download_episode(episode: Episode) -> None:
     filename = Path(episode.media_url).name
     # https://stackoverflow.com/a/16696317 Thank you!
     # TODO: Want to add a progress bar.
-    with requests.get(episode.media_url, stream=True) as r:  # noqa: S113
+    with requests.get(episode.media_url, stream=True, timeout=10) as r:
         r.raise_for_status()
         with open(filename, "wb") as f:  # noqa: PTH123
             for chunk in r.iter_content(chunk_size=8192):
