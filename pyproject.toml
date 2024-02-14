@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "snapcast_admin"
-version = "2.0.5"
+version = "2.0.6"
 description = ""
 authors = ["June <june@peanut.one>"]
 readme = "README.md"
@@ -11,6 +11,7 @@ b2sdk = "^1.29.0"
 click = "^8.1.7"
 requests = "^2.31.0"
 wcwidth = "^0.2.12"
+tqdm = "^4.66.2"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.8.0"

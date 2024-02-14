@@ -3,6 +3,7 @@
 from dataclasses import KW_ONLY, dataclass
 from datetime import datetime, timedelta, timezone
 from os import environ
+from pathlib import Path
 from typing import Iterable
 from urllib.parse import unquote
 
@@ -111,11 +112,12 @@ def update_episode(episode: Episode, field: str, value: str) -> None:
 
 def delete_episode(episode: Episode) -> None:
     """Delete an episode from the server and from backblaze."""
-    requests.delete(
+    r = requests.delete(
         f"{BASE_URL}/{FEED_ID}/episode/{episode.uuid}",
         headers=AUTH_HEADER,
         timeout=10,
     )
+    r.raise_for_status()
 
     _, bucket = get_b2()
     filename = unquote(episode.media_url.split("/")[-1])
@@ -125,3 +127,15 @@ def delete_episode(episode: Episode) -> None:
             bucket.get_file_info_by_name(filename).delete()
         except FileNotPresent:
             break
+
+
+def download_episode(episode: Episode) -> None:
+    """Download an episode's media file from the server."""
+    filename = Path(episode.media_url).name
+    # https://stackoverflow.com/a/16696317 Thank you!
+    # TODO: Want to add a progress bar.
+    with requests.get(episode.media_url, stream=True) as r:  # noqa: S113
+        r.raise_for_status()
+        with open(filename, "wb") as f:  # noqa: PTH123
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)

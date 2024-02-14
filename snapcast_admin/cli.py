@@ -8,6 +8,7 @@ from .snapcast import (
     Episode,
     database_fields,
     delete_episode,
+    download_episode,
     episode_info,
     get_all_episodes,
     update_episode,
@@ -86,6 +87,13 @@ def update(episode: Episode, field: str, value: str) -> None:
 def delete(episode: Episode) -> None:
     """Delete episodes."""
     delete_episode(episode)
+
+
+@cli.command()
+@click.argument("episode", required=True, type=EpisodeType())
+def download(episode: Episode) -> None:
+    """Download an episode."""
+    download_episode(episode)
 
 
 if __name__ == "__main__":
